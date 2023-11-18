@@ -30,7 +30,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <main className="flex w-screen min-h-screen items-center justify-between">
           <GlobalStateProvider value={initState}>
-            <Stack direction="row" spacing={2} className="w-full h-full">
+            <div className="flex flex-row w-full h-full">
               <Sidebar>
                 <History />
               </Sidebar>
@@ -38,7 +38,7 @@ export default function RootLayout({
               <div className="flex flex-col min-h-screen w-full align-middle">
                 <div className="grow">{children}</div>
               </div>
-            </Stack>
+            </div>
           </GlobalStateProvider>
         </main>
       </body>

@@ -4,16 +4,10 @@ import ModeToggle from "./ModeToggle";
 import { useGlobalState } from "@/state/globalState";
 import { useRef } from "react";
 import { TosContext } from "@/types";
-import firebase from "@/firebase/clientApp";
-import {
-  getFirestore,
-  doc,
-  setDoc,
-  addDoc,
-  collection,
-} from "firebase/firestore";
 
-const fireStore = getFirestore(firebase.app());
+
+
+
 const UPLOAD_COLLECTION_KEY = "tos"; // MSG - the collection name
 
 export default function Upload() {
@@ -26,9 +20,8 @@ export default function Upload() {
       name: (nameRef?.current as any).value,
       content: (contentRef?.current as any).value,
     };
+        // TODO firestore
 
-    await addDoc(collection(fireStore, UPLOAD_COLLECTION_KEY), newTos)
-      .then(() => {
         setState((prev) => {
           let newContext = prev?.context || [];
           newContext.push(newTos);
@@ -37,14 +30,11 @@ export default function Upload() {
         // nameRef?.current?.value = ""
         // contentRef?.current?.value = ""
         // TODO - reset nameRef and upload state
-      })
-      .catch((e) => {
-        console.error("Upload failed: ", e);
-      });
+
   };
 
   return (
-    <div className="flex w-full flex-col items-center justify-between p-5">
+    <div className="flex w-full flex-col items-center justify-between p-5 ">
       <div className="flex flex-row justify-between w-full">
         <h1 className="text-3xl text-left w-full">My Terms and Conditions</h1>
         <ModeToggle />

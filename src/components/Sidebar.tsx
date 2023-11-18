@@ -2,18 +2,17 @@
 
 import { useGlobalState } from "@/state/globalState";
 import { Button } from "@mui/material";
-import firebase from "@/firebase/clientApp";
-import "firebase/compat/auth";
+import {auth} from "@/firebase/clientApp";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+
 import React from "react";
 
 function Sidebar({ children }: { children: React.ReactNode }) {
   const { state, setState } = useGlobalState();
   const handleLogin = () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-
-    firebase
-      .auth()
-      .signInWithPopup(provider)
+    const provider = new GoogleAuthProvider();
+    const auth = getAuth();
+    signInWithPopup(auth,provider)
       .then((result) => {
         /** @type {firebase.auth.OAuthCredential} */
 
