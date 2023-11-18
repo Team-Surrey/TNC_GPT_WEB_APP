@@ -7,6 +7,9 @@ import { Message, History } from "@/types";
 import useConversation from "@/hooks/useConversation";
 import { v4 } from "uuid";
 import ModeToggle from "./ModeToggle";
+import Markdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
+import style from './styles/markdown.module.css'
 
 export default function Chat() {
   const inputRef = useRef<any>(null);
@@ -98,10 +101,12 @@ export default function Chat() {
               key={`key-${i}`}
               className={
                 "border p-3 w-fit max-w-[80%] rounded-md" +
-                (msg.user == "user" ? " ml-auto bg-blue-200" : "bg-gray-200")
+                (msg.user == "user" ? " ml-auto bg-blue-200" : " bg-gray-100")
               }
             >
-              {msg.content}
+              <Markdown remarkPlugins={[remarkGfm]} className={style.reactMarkDown}>
+              {msg.content as string}
+              </Markdown>
             </div>
           ))}
         {loading ? (

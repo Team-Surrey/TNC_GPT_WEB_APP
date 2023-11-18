@@ -24,7 +24,7 @@ export default function History() {
             className={
               "bg-transparent hover:bg-blue-500 hover:text-white py-2 w-full text-ellipsis p-2 max-w-[15rem] whitespace-nowrap" +
               (state?.currentConversation?.id == value.id
-                ? " bg-blue-400 text-white"
+                ? " bg-blue-400 text-black"
                 : " text-blue-700 bg-blue-500")
             }
             key={value.id}

@@ -5,9 +5,6 @@ import { useGlobalState } from "@/state/globalState";
 import { useRef } from "react";
 import { TosContext } from "@/types";
 
-
-
-
 const UPLOAD_COLLECTION_KEY = "tos"; // MSG - the collection name
 
 export default function Upload() {
@@ -16,21 +13,22 @@ export default function Upload() {
   const contentRef = useRef<any>(null);
 
   const handleUpload = async () => {
-    const newTos = {
+    const newTos: TosContext = {
       name: (nameRef?.current as any).value,
       content: (contentRef?.current as any).value,
     };
-        // TODO firestore
+    // TODO firestore
 
-        setState((prev) => {
-          let newContext = prev?.context || [];
-          newContext.push(newTos);
-          return { ...prev, context: newContext as TosContext[] };
-        });
-        // nameRef?.current?.value = ""
-        // contentRef?.current?.value = ""
-        // TODO - reset nameRef and upload state
+    setState((prev) => {
+      let newContext = prev?.context || [];
 
+      newContext.push(newTos);
+      return { ...prev, context: newContext as TosContext[] };
+    });
+
+    // nameRef?.current?.value = ""
+    // contentRef?.current?.value = ""
+    // TODO - reset nameRef and upload state
   };
 
   return (
@@ -41,7 +39,7 @@ export default function Upload() {
       </div>
       <div className="flex flex-row justify-between w-full h-full py-5 align-middle">
         <div className="border-2 rounded-md shadow flex-col overflow-scroll flex-nowrap w-40 h-full">
-          <h2 className="text-center font-bold">Saved TnC's</h2>
+          <h2 className="text-center font-bold">Saved TnC&apos;s</h2>
           {state?.context &&
             state.context.map((tos) => (
               <div key={`key-${tos.name}`}>

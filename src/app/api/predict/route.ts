@@ -1,25 +1,40 @@
 "use server";
-import callPredict from "@/lib/predict";
 import { NextResponse } from "next/server";
-import { OpenAI } from "langchain/llms/openai";
+import { GoogleVertexAI } from "langchain/llms/googlevertexai";
 
 export async function GET(req: any) {
   const text = req.nextUrl.searchParams.get(["text"]);
-  const prediction = await callPredict(text);
-  console.log();
-  return NextResponse.json(
-    prediction[0].predictions[0].structValue.fields.content.stringValue
-  );
+  const langPred = await openAiPredict(text);
+
+  return NextResponse.json(langPred);
 }
 
-// async function openAiPredict(prompt) {
-//   const llm = new OpenAi({
-//     temperature: 0.9
-//   })
-//   const chatModel = new ChatOpenAi()
-  
-//   const result = await chatModel.predict(prompt)
+async function openAiPredict(prompt: string) {
+  const cred = process.env.VERTEX_AI_CREDENTIALS;
+  if (!cred) return { error: "No credentials" };
+  const credObj = JSON.parse(cred);
+  const model = new GoogleVertexAI({
+    authOptions: {
+      credentials: credObj,
+    },
+    temperature: 0.2,
+    topP: 0.95,
+    topK: 40,
+    model: "text-bison",
+  });
 
+  const temp2 = `
+    Summarize the terms of service of company ${prompt} in the format:
+    Heading of company name
+    Summary of Tos: 
+      - bullet points
+    Things to be aware of:
+      - bullet points
 
-
-// }
+    If the company name provided isn't real, dont make up a random response and tell the user to please make sure the company they are asking about is real.
+    
+  `
+  const result = await model.call(temp2);
+  console.log(result);
+  return result;
+}

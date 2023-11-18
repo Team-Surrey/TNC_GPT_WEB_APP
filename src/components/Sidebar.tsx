@@ -35,7 +35,7 @@ function Sidebar({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex flex-col w-60 max-w-[15rem] items-center justify-center bg-blue-100 shadow-lg min-h-screen">
       <button
-        className="p-2 bg-blue-200 w-full hover:bg-blue-300"
+        className="p-2 bg-blue-400 w-full font-bold text-white hover:bg-blue-300"
         onClick={handleNewConversation}
       >
         Start New
@@ -46,7 +46,7 @@ function Sidebar({ children }: { children: React.ReactNode }) {
         <Button>Logout</Button>
       ) : (
         <button
-          className="border border-black rounded-md py-2 mx-2 w-full"
+          className="bg-blue-400 font-bold text-white py-2 mx-2 w-full"
           onClick={handleLogin}
         >
           Login

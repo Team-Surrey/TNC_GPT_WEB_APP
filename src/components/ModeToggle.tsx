@@ -27,7 +27,7 @@ function ModeToggle() {
       value={state.page}
     >
       <option value={Page.ask_ai}>Ask AI</option>
-      <option value={Page.upload}>Upload</option>
+      <option value={Page.upload}>Summarize</option>
     </select>
   );
 }
