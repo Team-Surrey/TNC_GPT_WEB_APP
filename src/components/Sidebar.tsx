@@ -6,9 +6,8 @@ import firebase from "@/firebase/clientApp";
 import "firebase/compat/auth";
 import React from "react";
 
-
 function Sidebar({ children }: { children: React.ReactNode }) {
-  const { state,setState } = useGlobalState();
+  const { state, setState } = useGlobalState();
   const handleLogin = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
 
@@ -31,15 +30,29 @@ function Sidebar({ children }: { children: React.ReactNode }) {
         // ...
       });
   };
-  const handleNewConversation = ()=>{
-    setState(prev=>({...prev,currentConversation:undefined}))
-  }
+  const handleNewConversation = () => {
+    setState((prev) => ({ ...prev, currentConversation: undefined }));
+  };
   return (
     <div className="flex flex-col w-60 max-w-[15rem] items-center justify-center bg-blue-100 shadow-lg min-h-screen">
-      <button className="p-2 bg-blue-200 w-full hover:bg-blue-300" onClick={handleNewConversation}>Start New</button>
+      <button
+        className="p-2 bg-blue-200 w-full hover:bg-blue-300"
+        onClick={handleNewConversation}
+      >
+        Start New
+      </button>
       <div className="grow overflow w-full">{children}</div>
 
-      {state.auth ? <Button>Logout</Button> : <button className="border border-black rounded-md py-2 mx-2 w-full" onClick={handleLogin}>Login</button>}
+      {state.auth ? (
+        <Button>Logout</Button>
+      ) : (
+        <button
+          className="border border-black rounded-md py-2 mx-2 w-full"
+          onClick={handleLogin}
+        >
+          Login
+        </button>
+      )}
     </div>
   );
 }

@@ -1,6 +1,5 @@
 "use client";
 
-
 import { Chat, Upload } from "../components";
 import { useGlobalState } from "@/state/globalState";
 import { Page } from "@/types";

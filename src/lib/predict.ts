@@ -1,26 +1,26 @@
-import 'server-only'
-const aiplatform = require('@google-cloud/aiplatform');
+import "server-only";
+const aiplatform = require("@google-cloud/aiplatform");
 
 // Imports the Google Cloud Prediction service client
-const {PredictionServiceClient} = aiplatform.v1;
+const { PredictionServiceClient } = aiplatform.v1;
 
 // Import the helper module for converting arbitrary protobuf.Value objects.
-const {helpers} = aiplatform;
+const { helpers } = aiplatform;
 
 // Specifies the location of the api endpoint
 const clientOptions = {
-  apiEndpoint: 'us-central1-aiplatform.googleapis.com',
+  apiEndpoint: "us-central1-aiplatform.googleapis.com",
 };
 
-const publisher = 'google';
-const model = 'text-bison@001';
+const publisher = "google";
+const model = "text-bison@001";
 
-const project = 'hongtai-405321';
-const location = 'eu-west2'
+const project = "hongtai-405321";
+const location = "eu-west2";
 // Instantiates a client
 const predictionServiceClient = new PredictionServiceClient(clientOptions);
 
-export default async function callPredict(text:String) {
+export default async function callPredict(text: String) {
   // Configure the parent resource
   const endpoint = `projects/${project}/locations/${location}/publishers/${publisher}/models/${model}`;
 
@@ -45,7 +45,6 @@ export default async function callPredict(text:String) {
   };
 
   // Predict request
-  const prediction =  await predictionServiceClient.predict(request);
-  return prediction
+  const prediction = await predictionServiceClient.predict(request);
+  return prediction;
 }
-

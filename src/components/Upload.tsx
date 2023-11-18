@@ -4,32 +4,49 @@ import ModeToggle from "./ModeToggle";
 import { useGlobalState } from "@/state/globalState";
 import { useRef } from "react";
 import { TosContext } from "@/types";
+import firebase from "@/firebase/clientApp";
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  addDoc,
+  collection,
+} from "firebase/firestore";
+
+const fireStore = getFirestore(firebase.app());
+const UPLOAD_COLLECTION_KEY = "tos"; // MSG - the collection name
 
 export default function Upload() {
   const { state, setState } = useGlobalState();
   const nameRef = useRef<any>(null);
   const contentRef = useRef<any>(null);
 
-  const handleUpload = () => {
+  const handleUpload = async () => {
     const newTos = {
       name: (nameRef?.current as any).value,
       content: (contentRef?.current as any).value,
     };
-    setState((prev) => {
-      let newContext = prev?.context || [];
-      newContext.push(newTos);
-      return { ...prev, context: newContext as TosContext[] };
-    });
-    // nameRef?.current?.value = ""
-    // contentRef?.current?.value = ""
+
+    await addDoc(collection(fireStore, UPLOAD_COLLECTION_KEY), newTos)
+      .then(() => {
+        setState((prev) => {
+          let newContext = prev?.context || [];
+          newContext.push(newTos);
+          return { ...prev, context: newContext as TosContext[] };
+        });
+        // nameRef?.current?.value = ""
+        // contentRef?.current?.value = ""
+        // TODO - reset nameRef and upload state
+      })
+      .catch((e) => {
+        console.error("Upload failed: ", e);
+      });
   };
 
   return (
-    <div className="flex w-full flex-col items-center justify-between h-full p-5">
+    <div className="flex w-full flex-col items-center justify-between p-5">
       <div className="flex flex-row justify-between w-full">
-        <h1 className="text-3xl text-left w-full">
-          My Terms and Conditions
-        </h1>
+        <h1 className="text-3xl text-left w-full">My Terms and Conditions</h1>
         <ModeToggle />
       </div>
       <div className="flex flex-row justify-between w-full h-full py-5 align-middle">
@@ -49,8 +66,14 @@ export default function Upload() {
             ref={nameRef}
             className="p-2 rounded-md border"
           />
-          <textarea placeholder="Tos..." ref={contentRef} className="border p-2 rounded-md grow" />
-          <button onClick={handleUpload} className="border p-2 rounded-md w-60">Save</button>
+          <textarea
+            placeholder="Tos..."
+            ref={contentRef}
+            className="border p-2 rounded-md grow"
+          />
+          <button onClick={handleUpload} className="border p-2 rounded-md w-60">
+            Save
+          </button>
         </div>
       </div>
     </div>

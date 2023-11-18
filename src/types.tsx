@@ -7,19 +7,19 @@ export enum Page {
   upload = "upload",
 }
 
-export type Message =  {
-  content: String
-  time: Date
-  user: "user" | "ai"
-}
+export type Message = {
+  content: String;
+  time: Date;
+  user: "user" | "ai";
+};
 
 export type History = {
-  id: string,
-  title: string,
-  messages: Message[]
-}
+  id: string;
+  title: string;
+  messages: Message[];
+};
 
 export type TosContext = {
-  name: String,
-  content: String
-}
+  name: String;
+  content: String;
+};
