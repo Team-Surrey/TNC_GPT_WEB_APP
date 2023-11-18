@@ -12,11 +12,11 @@ function ModeToggle() {
   const handlePageChange = (e:any) =>{
     setState((prev)=>({
       ...prev,
-      page: e.target.value == Page.ask_ai ? Page.ask_ai : Page.upload
+      page: e.target.value
     }))
   }
   return (
-    <select onChange={handlePageChange} className="p-2 rounded bg-blue-400  font-bold text-white decoration-none">
+    <select onChange={handlePageChange} className="p-2 rounded bg-blue-400  font-bold text-white decoration-none" value={state.page}>
       <option value={Page.ask_ai}>Ask AI</option>
       <option value={Page.upload}>Upload</option>
     </select>

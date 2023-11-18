@@ -18,3 +18,8 @@ export type History = {
   title: string,
   messages: Message[]
 }
+
+export type TosContext = {
+  name: String,
+  content: String
+}

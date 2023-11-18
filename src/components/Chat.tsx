@@ -90,9 +90,12 @@ export default function Chat() {
         {loading? (<div className={"border p-3 w-fit max-w-[80%] rounded-md"}>Loading...</div>) :(<></>) }
       </div>
 
-      <div className="flex flex-row w-full spacing-x-1">
+      <div className="flex flex-row w-full">
         <input className="p-3 border-2 grow rounded-md mr-2" placeholder="prompt..." ref={inputRef}/>
-
+        <select className="p-2 mr-2 rounded-md" defaultValue={"none"}>
+          <option value="none">choose Tos</option>
+          {state?.context?.map((tos,i)=>(<option key={`tos-${i}`} value={tos.name as string}>{tos.name}</option>))}
+        </select>
         <button className="border bg-blue-500 p-3 rounded-md font-bold text-white" onClick={handlePredict}>Send</button>
       </div>
     </div>

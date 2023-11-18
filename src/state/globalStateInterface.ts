@@ -1,4 +1,4 @@
-import { Message, Page,History } from "@/types";
+import { Message, Page,History, TosContext } from "@/types";
 
 
 
@@ -7,5 +7,6 @@ export interface GlobalStateInterface {
     auth: boolean,
     page: Page
     currentConversation: History,
+    context: TosContext[]
   }
   
